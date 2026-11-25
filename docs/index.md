@@ -48,6 +48,7 @@ Key capabilities:
 - [Static capacity](examples/static-capacity.md) — keep a fixed number of nodes running with `spec.replicas`
 - [Image management](image-management.md) — controlling GKE node image selection, version pinning, and drift
 - [Self-hosted clusters](self-hosted.md) — provision nodes for clusters on Compute Engine without GKE, such as kOps
+- [Running alongside GKE autoscaling](gke-autoscaling.md) — share a cluster with the GKE cluster autoscaler, node auto-provisioning, and ComputeClasses
 
 ## Reference
 

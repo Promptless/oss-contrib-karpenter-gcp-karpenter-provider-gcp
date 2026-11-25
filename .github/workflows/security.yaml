@@ -21,16 +21,21 @@ jobs:
       contents: read
       pull-requests: read
     steps:
-      - uses: actions/dependency-review-action@v5.0.0
+      - uses: actions/dependency-review-action@v5.0.1
         with:
           fail-on-severity: high
           fail-on-scopes: runtime, development, unknown
           license-check: true
           # Keep in sync with CNCF_ALLOWED_LICENSES in Makefile.
+          # LicenseRef-scancode-google-patent-license-golang is how GitHub's
+          # scanner reports Go's PATENTS grant, which CNCF allows
+          # (https://golang.org/PATENTS). It appears only here: go-licenses
+          # in `make license-check` reads LICENSE files and ignores PATENTS.
           allow-licenses: >-
             Apache-2.0, 0BSD, BSD-2-Clause, BSD-2-Clause-FreeBSD, BSD-3-Clause,
             MIT, MIT-0, ISC, OpenSSL, OpenSSL-standalone, PSF-2.0, Python-2.0,
-            Python-2.0.1, PostgreSQL, SSLeay-standalone, UPL-1.0, X11, Zlib
+            Python-2.0.1, PostgreSQL, SSLeay-standalone, UPL-1.0, X11, Zlib,
+            LicenseRef-scancode-google-patent-license-golang
           comment-summary-in-pr: never
 
   actions-lock:
@@ -77,7 +82,7 @@ jobs:
 
       - if: matrix.language == 'go'
         name: Set up Go
-        uses: actions/setup-go@v7.0.0
+        uses: actions/setup-go@v7.1.0
         with:
           go-version-file: go.mod
 
@@ -157,7 +162,7 @@ jobs:
           persist-credentials: false
       - name: Select Go toolchain
         id: go-toolchain
-        uses: actions/setup-go@v7.0.0
+        uses: actions/setup-go@v7.1.0
         with:
           go-version-file: go.mod
           cache: false
@@ -203,7 +208,7 @@ jobs:
           persist-credentials: false
       - name: Select Go toolchain
         id: go-toolchain
-        uses: actions/setup-go@v7.0.0
+        uses: actions/setup-go@v7.1.0
         with:
           go-version-file: go.mod
           cache: false
